@@ -38,4 +38,9 @@ export class TasksController {
   async remove(@Param('id') id: string) {
     return await this.tasksService.remove(+id);
   }
+
+  @Delete()
+  async removeAll() {
+    return await this.tasksService.removeAll();
+  }
 }

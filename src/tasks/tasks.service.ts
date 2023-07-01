@@ -28,4 +28,8 @@ export class TasksService {
   async remove(id: number): Promise<DeleteResult> {
     return await this.taskRepository.delete(id);
   }
+
+  async removeAll(): Promise<DeleteResult> {
+    return await this.taskRepository.createQueryBuilder().delete().execute();
+  }
 }

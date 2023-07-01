@@ -7,15 +7,20 @@ import {
 
 @Entity()
 export class Task {
-  @PrimaryGeneratedColumn()
-  taskId: number;
 
-  @Column()
-  description: string;
+    constructor(description: string) {
+        this.description = description;
+    }
 
-  @Column({ default: false })
-  isDone: boolean;
+    @PrimaryGeneratedColumn()
+    taskId: number;
 
-  @CreateDateColumn()
-  createdAt: Date;
+    @Column()
+    description: string;
+
+    @Column({ default: false })
+    isDone: boolean;
+
+    @CreateDateColumn()
+    createdAt: Date;
 }
