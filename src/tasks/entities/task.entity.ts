@@ -3,6 +3,7 @@ import {
   Column,
   PrimaryGeneratedColumn,
   CreateDateColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 
 @Entity()
@@ -23,4 +24,7 @@ export class Task {
 
     @CreateDateColumn()
     createdAt: Date;
+
+    @CreateDateColumn()
+    updatedAt: Date;
 }

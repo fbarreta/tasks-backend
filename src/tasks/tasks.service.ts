@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, UpdateResult, DeleteResult } from 'typeorm';
+import { Like, Repository, UpdateResult, DeleteResult } from 'typeorm';
 import { Task } from './entities/task.entity';
 
 @Injectable()
@@ -14,11 +14,27 @@ export class TasksService {
   }
 
   async findAll(): Promise<Task[]> {
-    return await this.taskRepository.find();
+    return await this.taskRepository.find({
+                                              order: {
+                                                  description: "ASC"
+                                              }
+                                          });
   }
 
   async findOne(id: number): Promise<Task> {
     return await this.taskRepository.findOne({where:{taskId: id}});
+  }
+
+  async findByDescription(searchTxt: string): Promise<Task[]> {
+    if (searchTxt) {
+      return await this.taskRepository.find({
+                                              order: {
+                                                description: "ASC"
+                                              },
+                                              where:{description: Like(`%${searchTxt}%`)}
+                                            });
+    }
+    return await this.taskRepository.find();
   }
 
   async update(id: number, task: Task): Promise<UpdateResult> {

@@ -29,6 +29,7 @@ describe('TasksService', () => {
         useValue: {
           find: jest.fn().mockResolvedValue(tasksArray),
           findOne: jest.fn().mockResolvedValue(oneTask),
+          findByDescription: jest.fn().mockResolvedValue(tasksArray),
           update: jest.fn().mockResolvedValue(taskToUpdate),
           save: jest.fn().mockResolvedValue(newTask),
           delete: jest.fn().mockResolvedValue(true),
@@ -53,6 +54,11 @@ describe('TasksService', () => {
   it('should return all the tasks', async () => {
     const allTasks = await service.findAll();
     expect(allTasks).toEqual(tasksArray);
+  });
+
+  it('should return filtered tasks', async () => {
+    const filteredTasks = await service.findByDescription('test');
+    expect(filteredTasks).toEqual(tasksArray);
   });
 
   it('should return one the task', async () => {

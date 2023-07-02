@@ -6,6 +6,7 @@ import {
   Put,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
 import { TasksService } from './tasks.service';
 import { Task } from './entities/task.entity';
@@ -17,6 +18,11 @@ export class TasksController {
   @Post()
   async create(@Body() task: Task) {
     return await this.tasksService.create(task);
+  }
+
+  @Get('/search')
+  async findByDescription(@Query('searchTxt') searchTxt: string): Promise<Task[]> {
+    return await this.tasksService.findByDescription(searchTxt);
   }
 
   @Get()
